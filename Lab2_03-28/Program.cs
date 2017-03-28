@@ -19,7 +19,7 @@ namespace Lab2_03_28
             bool runProgram = true;
             while (runProgram)
             {
-                Console.WriteLine("Please input an integer between 1 and 100:");
+                Console.WriteLine("Enter a number between 1 and 100:");
                 int inputNum = int.Parse(Console.ReadLine());
 
                 //Verify input
@@ -29,39 +29,46 @@ namespace Lab2_03_28
                     inputNum = int.Parse(Console.ReadLine());
                 }
 
+                //Output defaults to error message
+                string output = "Invalid input.";
+
                 //Is inputNum odd?
                 if (inputNum % 2 != 0)
                 {
-                    Console.WriteLine(inputNum + " Odd.");
+                    output = inputNum + " and Odd.";
                 }
                 //Is inputNum even and between 2 and 25?
                 else if (inputNum % 2 == 0 && inputNum >= 2 && inputNum <= 25)
                 {
-                    Console.WriteLine("Even and less than 25.");
+                    output = "Even and less than 25.";
                 }
                 //Is inputNum even and between 26 and 60?
                 else if (inputNum % 2 == 0 && inputNum >= 26 && inputNum <= 60)
                 {
-                    Console.WriteLine("Even.");
+                    output = "Even.";
                 }
                 //Is inputNum even and over 60?
                 else if (inputNum % 2 == 0 && inputNum > 60)
                 {
-                    Console.WriteLine(inputNum + " Even.");
+                    output = inputNum + " and Even.";
                 }
                 //Is inputNum odd and over 60?
                 else if (inputNum % 2 != 0 && inputNum > 60)
                 {
-                    Console.WriteLine(inputNum + " Odd.");
+                    output = inputNum + " and Odd.";
                 }
                 //Invalid input
                 else
                 {
-                    Console.WriteLine("Invalid input.");
+                    output = "Invalid input.";
                 }
 
+                //Display final output
+                Console.WriteLine("Output: " + output);
+
+
                 //Ask if user wants to continue
-                Console.WriteLine("Would you like to continue, " + name + "? y/n:");
+                Console.WriteLine("Continue? (y/n):");
 
                 string cont = Console.ReadLine();
 
@@ -75,6 +82,7 @@ namespace Lab2_03_28
                 //Quit program
                 if (cont == "n" || cont == "N")
                 {
+                    Console.WriteLine("Bye, " + name + "!");
                     runProgram = false;
                 }
 
