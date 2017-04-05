@@ -21,6 +21,7 @@ namespace Lab2_03_28
             {
                 Console.WriteLine("Enter a number between 1 and 100:");
                 int inputNum = int.Parse(Console.ReadLine());
+                bool isEven = CheckIfEven(inputNum);
 
                 //Verify input
                 while (inputNum < 1 || inputNum > 100)
@@ -33,27 +34,27 @@ namespace Lab2_03_28
                 string output = "Invalid input.";
 
                 //Is inputNum odd?
-                if (inputNum % 2 != 0)
+                if (isEven == false)
                 {
                     output = inputNum + " and Odd.";
                 }
                 //Is inputNum even and between 2 and 25?
-                else if (inputNum % 2 == 0 && inputNum >= 2 && inputNum <= 25)
+                else if (isEven == true && inputNum >= 2 && inputNum <= 25)
                 {
                     output = "Even and less than 25.";
                 }
                 //Is inputNum even and between 26 and 60?
-                else if (inputNum % 2 == 0 && inputNum >= 26 && inputNum <= 60)
+                else if (isEven == true && inputNum >= 26 && inputNum <= 60)
                 {
                     output = "Even.";
                 }
                 //Is inputNum even and over 60?
-                else if (inputNum % 2 == 0 && inputNum > 60)
+                else if (isEven == true && inputNum > 60)
                 {
                     output = inputNum + " and Even.";
                 }
                 //Is inputNum odd and over 60?
-                else if (inputNum % 2 != 0 && inputNum > 60)
+                else if (isEven == false && inputNum > 60)
                 {
                     output = inputNum + " and Odd.";
                 }
@@ -88,6 +89,41 @@ namespace Lab2_03_28
 
             }
             
+        }
+
+        public static bool CheckIfEven(int inputNum)
+        {
+            if (inputNum % 2 == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //public static bool Continue(string input)
+        public static Boolean Continue()
+        {
+            Console.WriteLine("Continue? y/n: ");
+            string input = Console.ReadLine();
+            Boolean run = false;
+            input.ToLower();
+
+            if(input == "n")
+            {
+                Console.WriteLine("Goodbye.");
+                run = false;
+            }
+            else if (input == "y")
+            {
+                run = true;
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please type y/n:");
+            }
         }
     }
 }
