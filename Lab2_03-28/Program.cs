@@ -15,20 +15,58 @@ namespace Lab2_03_28
 
             Console.WriteLine("Greetings, " + name + "!");
 
+            //Keep track of user inputs and results for later
+            List<int> userEntries = new List<int>();
+            List<string> results = new List<string>();
+
             //Loop program until user wants to quit
             bool runProgram = true;
             while (runProgram)
             {
-                Console.WriteLine("Enter a number between 1 and 100:");
+                int inputNum = -1;
+                bool isValidInput = false;
 
-                int inputNum = GetInput();
+                //Get and validate input
+                do
+                {
+                    Console.WriteLine("\nEnter a number between 1 and 100, or type 'print' to list results so far:");
+                    string userInput = Console.ReadLine().ToLower();
+                    if (userInput.Equals("print"))
+                    {
+                        PrintAll(userEntries, results);
+                    }
+                    else
+                    {
+                        bool isInteger = false;
+                        try
+                        {
+                            inputNum = int.Parse(userInput);
+                            isInteger = true;
+                        }
+                        catch (System.FormatException)
+                        {
+                            Console.WriteLine("Input was not an integer! Please type a whole number between 1 and 100.");
+                            isInteger = false;
+                        }
 
+                        //Is input between 1 and 100?
+                        if (isInteger == true)
+                        {
+                            if (inputNum < 1 || inputNum > 100)
+                            {
+                                Console.WriteLine("Input must be a whole number between 1 and 100! Try again.");
+                            }
+                            else
+                            {
+                                isValidInput = true;
+                            }
+                        }
 
-                
+                    }
+                } while (isValidInput == false);
+
 
                 bool isEven = CheckIfEven(inputNum);
-
-                
 
                 //Output defaults to error message
                 string output = "Invalid input.";
@@ -67,26 +105,13 @@ namespace Lab2_03_28
                 //Display final output
                 Console.WriteLine("Output: " + output);
 
+                userEntries.Add(inputNum);
+                results.Add(output);
 
                 //Ask if user wants to continue
                 Console.WriteLine("Continue? (y/n):");
 
-                string cont = Console.ReadLine();
-
-                //Verify input
-                while (cont != "y" && cont != "Y" && cont != "n" && cont != "N")
-                {
-                    Console.WriteLine("I don't understand what you said, " + name + ". Please enter y/n:");
-                    cont = Console.ReadLine();
-                }
-
-                //Quit program
-                if (cont == "n" || cont == "N")
-                {
-                    Console.WriteLine("Bye, " + name + "!");
-                    runProgram = false;
-                }
-
+                runProgram = Continue();
             }
             
         }
@@ -103,38 +128,20 @@ namespace Lab2_03_28
             }
         }
 
-        public static int GetInput()
+        public static void PrintAll(List<int> userEntries, List<string> results)
         {
-            int inputNum = -1;
-
-            //Is input an integer?
-            try
+            Console.WriteLine("\nHere are the results so far:");
+            Console.WriteLine("==========================================");
+            for (int i=0; i < userEntries.Count; i++)
             {
-                inputNum = int.Parse(Console.ReadLine());
+                Console.WriteLine("Round " + (i + 1) + " | User entry: " + userEntries[i] + " Result: " + results[i]);
             }
-            catch (System.FormatException)
-            {
-                Console.WriteLine("Input was not an integer! Please type a whole number between 1 and 100:");
-                inputNum = GetInput();
-            }
-
-            //Is input between 1 and 100?
-            if (inputNum < 1 || inputNum > 100)
-            {
-                Console.WriteLine("Input must be a whole number between 1 and 100! Try again:");
-                inputNum = GetInput();
-            }
-
-            return inputNum;
         }
-
 
         public static Boolean Continue()
         {
-            Console.WriteLine("Continue? y/n: ");
-            string input = Console.ReadLine();
+            string input = Console.ReadLine().ToLower();
             Boolean run = false;
-            input.ToLower();
 
             if(input == "n")
             {
