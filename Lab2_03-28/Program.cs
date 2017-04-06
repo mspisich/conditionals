@@ -20,15 +20,15 @@ namespace Lab2_03_28
             while (runProgram)
             {
                 Console.WriteLine("Enter a number between 1 and 100:");
-                int inputNum = int.Parse(Console.ReadLine());
+
+                int inputNum = GetInput();
+
+
+                
+
                 bool isEven = CheckIfEven(inputNum);
 
-                //Verify input
-                while (inputNum < 1 || inputNum > 100)
-                {
-                    Console.WriteLine("I'm sorry " + name + ", what you entered is invalid. Please enter an integer between 1 and 100:");
-                    inputNum = int.Parse(Console.ReadLine());
-                }
+                
 
                 //Output defaults to error message
                 string output = "Invalid input.";
@@ -103,7 +103,32 @@ namespace Lab2_03_28
             }
         }
 
-        //public static bool Continue(string input)
+        public static int GetInput()
+        {
+            int inputNum = -1;
+
+            //Is input an integer?
+            try
+            {
+                inputNum = int.Parse(Console.ReadLine());
+            }
+            catch (System.FormatException)
+            {
+                Console.WriteLine("Input was not an integer! Please type a whole number between 1 and 100:");
+                inputNum = GetInput();
+            }
+
+            //Is input between 1 and 100?
+            if (inputNum < 1 || inputNum > 100)
+            {
+                Console.WriteLine("Input must be a whole number between 1 and 100! Try again:");
+                inputNum = GetInput();
+            }
+
+            return inputNum;
+        }
+
+
         public static Boolean Continue()
         {
             Console.WriteLine("Continue? y/n: ");
@@ -123,7 +148,10 @@ namespace Lab2_03_28
             else
             {
                 Console.WriteLine("Invalid input. Please type y/n:");
+                run = Continue();
             }
+
+            return run;
         }
     }
 }
